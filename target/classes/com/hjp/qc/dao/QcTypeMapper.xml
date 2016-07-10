@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hjp.qc.mapper.QcTypeMapper" >
+	<resultMap id="QcTypeMap" type="com.hjp.qc.vo.QcType" >
+    	<result column="ID" property="id" jdbcType="VARCHAR"/>
+    	<result column="QC_TYPE_CODE" property="qcTypeCode" jdbcType="VARCHAR"/>
+    	<result column="QC_TYPE_NAME" property="qcTypeName" jdbcType="VARCHAR"/>
+    	<result column="PRE_QC_TYPE_CODE" property="preQcTypeCode" jdbcType="VARCHAR"/>
+    	<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+    	<result column="QC_TYPE_LEVEL" property="qcTypeLevel" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="queryQcTypeByPage" resultMap="QcTypeMap" parameterType="page">
+    	select ID, QC_TYPE_CODE, QC_TYPE_NAME, PRE_QC_TYPE_CODE, CREATE_TIME, QC_TYPE_LEVEL
+    		from tf_m_qc_type
+    		where 1=1
+    	<if test="t.qcTypeLevel != null" >
+    		and QC_TYPE_LEVEL = #{t.qcTypeLevel,jdbcType=VARCHAR}
+    	</if>
+    	<if test="t.queryQcTypeCode != null" >
+    		and QC_TYPE_CODE like '%${t.queryQcTypeCode}%'
+    	</if>
+    	<if test="t.beginTime != null" >
+			<![CDATA[
+			and CREATE_TIME >= DATE_FORMAT(#{t.beginTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s')
+			]]>
+		</if>
+		<if test="t.endTime != null" >
+			<![CDATA[
+			and CREATE_TIME <= DATE_FORMAT(#{t.endTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s')
+			]]>
+		</if>
+    </select>
+    
+    <select id="queryQcType" resultMap="QcTypeMap" parameterType="java.util.HashMap">
+    	select ID, QC_TYPE_CODE, QC_TYPE_NAME, PRE_QC_TYPE_CODE, CREATE_TIME, QC_TYPE_LEVEL
+    		from tf_m_qc_type
+    		where 1=1
+    	<if test="qcTypeLevel != null" >
+    		and QC_TYPE_LEVEL = #{qcTypeLevel,jdbcType=VARCHAR}
+    	</if>
+    	<if test="qcTypeCode != null" >
+    		and QC_TYPE_CODE = #{qcTypeCode,jdbcType=VARCHAR}
+    	</if>
+    	<if test="preQcTypeCode != null" >
+    		and PRE_QC_TYPE_CODE = #{preQcTypeCode,jdbcType=VARCHAR}
+    	</if>
+    </select>
+    
+    <insert id="insertQcType" parameterType="com.hjp.qc.vo.QcType">
+    	insert into tf_m_qc_type
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+    		<if test="id != null" >
+		        ID,
+		    </if>
+		    <if test="qcTypeCode != null" >
+		        QC_TYPE_CODE,
+		    </if>
+		    <if test="qcTypeName != null" >
+		        QC_TYPE_NAME,
+		    </if>
+		    <if test="preQcTypeCode != null" >
+		        PRE_QC_TYPE_CODE,
+		    </if>
+		    <if test="qcTypeLevel != null" >
+		        QC_TYPE_LEVEL,
+		    </if>
+		    <if test="createTime != null" >
+		        CREATE_TIME,
+		    </if>
+		</trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    	<if test="id != null" >
+	        	#{id,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="qcTypeCode != null" >
+	        	#{qcTypeCode,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="qcTypeName != null" >
+	        	#{qcTypeName,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="preQcTypeCode != null" >
+	        	#{preQcTypeCode,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="qcTypeLevel != null" >
+	        	#{qcTypeLevel,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="createTime != null" >
+	        	#{createTime,jdbcType=TIMESTAMP},
+	      	</if>
+	    </trim>
+    </insert>
+    
+    <update id="updateQcType" parameterType="com.hjp.qc.vo.QcType">
+    	update tf_m_qc_type
+    		<set>
+		  	  <if test="qcTypeCode != null" >
+		        QC_TYPE_CODE = #{qcTypeCode,jdbcType=VARCHAR},
+		      </if>
+		      <if test="qcTypeName != null" >
+		        QC_TYPE_NAME = #{qcTypeName,jdbcType=VARCHAR},
+		      </if>
+		      <if test="preQcTypeCode != null" >
+		        PRE_QC_TYPE_CODE = #{preQcTypeCode,jdbcType=VARCHAR},
+		      </if>
+		    </set>
+		where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteQcType" parameterType="java.util.HashMap">
+    	delete from tf_m_qc_type
+    		WHERE 1=1
+    		<if test="id != null" >
+				and ID = #{id,jdbcType=VARCHAR}
+			</if>
+    </delete>
+    
+</mapper>

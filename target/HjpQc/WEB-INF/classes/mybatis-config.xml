@@ -11,6 +11,11 @@
          </plugin>   
      </plugins>
 	<mappers>
-		
+		<mapper resource="com/hjp/qc/dao/StaffMapper.xml"/>
+		<mapper resource="com/hjp/qc/dao/MenuMapper.xml"/>
+		<mapper resource="com/hjp/qc/dao/SequenceMapper.xml"/>
+		<mapper resource="com/hjp/qc/dao/QcTypeMapper.xml"/>
+		<mapper resource="com/hjp/qc/dao/QcMapper.xml"/>
+		<mapper resource="com/hjp/qc/dao/StaticVariableMapper.xml"/>
 	</mappers>
 </configuration> 

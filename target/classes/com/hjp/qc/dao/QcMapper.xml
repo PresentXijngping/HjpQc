@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hjp.qc.mapper.QcMapper" >
+	<resultMap id="QcMap" type="com.hjp.qc.vo.Qc" >
+    	<result column="ID" property="id" jdbcType="VARCHAR"/>
+    	<result column="QC_NAME" property="qcName" jdbcType="VARCHAR"/>
+    	<result column="QC_TYPE_CODE" property="qcTypeCode" jdbcType="VARCHAR"/>
+    	<result column="QC_CODE" property="qcCode" jdbcType="VARCHAR"/>
+    	<result column="QC_STANDARD" property="qcStandard" jdbcType="TIMESTAMP"/>
+    	<result column="PIC_URL" property="picUrl" jdbcType="VARCHAR"/>
+    	<result column="STATE" property="state" jdbcType="VARCHAR"/>
+    	<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    <insert id="insertQc" parameterType="com.hjp.qc.vo.QcType">
+    	insert into tf_m_qc
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+    		<if test="id != null" >
+		        ID,
+		    </if>
+		    <if test="qcName != null" >
+		        QC_NAME,
+		    </if>
+		    <if test="qcTypeCode != null" >
+		        QC_TYPE_CODE,
+		    </if>
+		    <if test="qcCode != null" >
+		        QC_CODE,
+		    </if>
+		    <if test="qcStandard != null" >
+		        QC_STANDARD,
+		    </if>
+		    <if test="picUrl != null" >
+		        PIC_URL,
+		    </if>
+		    <if test="state != null" >
+		        STATE,
+		    </if>
+		    <if test="createTime != null" >
+		        CREATE_TIME,
+		    </if>
+		</trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    	<if test="id != null" >
+	        	#{id,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="qcName != null" >
+	        	#{qcName,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="qcTypeCode != null" >
+	        	#{qcTypeCode,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="qcCode != null" >
+	        	#{qcCode,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="qcStandard != null" >
+	        	#{qcStandard,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="picUrl != null" >
+	        	#{picUrl,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="state != null" >
+	        	#{state,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="createTime != null" >
+	        	#{createTime,jdbcType=TIMESTAMP},
+	      	</if>
+	   	</trim>
+    </insert>
+    
+    <update id="updateQc" parameterType="com.hjp.qc.vo.Qc">
+    	update tf_m_qc
+    		<set>
+		  	  <if test="qcTypeCode != null" >
+		        QC_TYPE_CODE = #{qcTypeCode,jdbcType=VARCHAR},
+		      </if>
+		      <if test="qcName != null" >
+		        QC_NAME = #{qcName,jdbcType=VARCHAR},
+		      </if>
+		      <if test="qcCode != null" >
+		        QC_CODE = #{qcCode,jdbcType=VARCHAR},
+		      </if>
+		      <if test="qcStandard != null" >
+		        QC_STANDARD = #{qcStandard,jdbcType=VARCHAR},
+		      </if>
+		      <if test="picUrl != null" >
+		        PIC_URL = #{picUrl,jdbcType=VARCHAR},
+		      </if>
+		      <if test="state != null" >
+		        STATE = #{state,jdbcType=VARCHAR},
+		      </if>
+		    </set>
+		where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="queryQc" resultMap="QcMap" parameterType="java.util.HashMap">
+    	select ID, QC_NAME, QC_TYPE_CODE, QC_CODE, QC_STANDARD, PIC_URL, STATE, CREATE_TIME
+    		from tf_m_qc
+    		where 1=1
+    		<if test="qcTypeCode != null" >
+    			and QC_TYPE_CODE = #{qcTypeCode,jdbcType=VARCHAR}
+    		</if>
+    		<if test="qcCode != null" >
+    			and QC_CODE = #{qcCode,jdbcType=VARCHAR}
+    		</if>
+    		<if test="id != null" >
+    			and ID = #{id,jdbcType=VARCHAR}
+    		</if>
+    </select>
+    
+    <select id="queryQcByPage" resultMap="QcMap" parameterType="page">
+    	select ID, QC_NAME, QC_TYPE_CODE, QC_CODE, QC_STANDARD, PIC_URL, STATE, CREATE_TIME
+    		from tf_m_qc
+    		where 1=1
+    		<if test="t.qcTypeCode != null" >
+    			and QC_TYPE_CODE = #{t.qcTypeCode,jdbcType=VARCHAR}
+    		</if>
+    		<if test="t.queryQcCode != null" >
+    			and QC_CODE = #{t.queryQcCode,jdbcType=VARCHAR}
+    		</if>
+    </select>
+    
+    <delete id="deleteQc" parameterType="java.util.HashMap">
+    	delete from tf_m_qc
+    		WHERE 1=1
+    		<if test="id != null" >
+    			and ID = #{id,jdbcType=VARCHAR}
+    		</if>
+    </delete>
+    
+</mapper>

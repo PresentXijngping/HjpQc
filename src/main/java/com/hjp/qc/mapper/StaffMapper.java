@@ -23,6 +23,8 @@ public interface StaffMapper {
 	
 	void updateStaffPassword(Staff staff);
 	
+	void deleteStaff(HashMap<String, Object> cond);
+	
 	List<Staff> queryStaffByPage(Page page);
 	
 	List<Role> queryRole(HashMap<String, Object> cond);

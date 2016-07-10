@@ -19,6 +19,8 @@ public class Staff {
 	private String merchantName;
 	
 	private String clearPassword;
+	
+	private String id;
 
 	public String getStaffId() {
 		return staffId;
@@ -82,6 +84,14 @@ public class Staff {
 
 	public void setClearPassword(String clearPassword) {
 		this.clearPassword = clearPassword;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

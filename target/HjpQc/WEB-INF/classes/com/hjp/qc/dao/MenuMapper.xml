@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hjp.qc.mapper.MenuMapper" >
+	<resultMap id="MenuMap" type="com.hjp.qc.vo.Menu" >
+    	<result column="MENU_ID" property="menuId" jdbcType="VARCHAR"/>
+    	<result column="MENU_NAME" property="menuName" jdbcType="VARCHAR"/>
+    	<result column="STATE" property="state" jdbcType="VARCHAR"/>
+    	<result column="PRE_MENU_ID" property="preMenuId" jdbcType="VARCHAR"/>
+    	<result column="ICON_CLS" property="iconCls" jdbcType="VARCHAR"/>
+    	<result column="MENU_URL" property="menuUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="queryMenuInfo" resultMap="MenuMap" parameterType="java.util.HashMap">
+    	select MENU_ID, MENU_NAME, STATE, PRE_MENU_ID, ICON_CLS, MENU_URL
+    		from tf_m_menu
+    		where 1=1
+    		<if test="preMenuId != null" >
+				and PRE_MENU_ID = #{preMenuId,jdbcType=VARCHAR}
+			</if>
+    </select>
+    
+</mapper>

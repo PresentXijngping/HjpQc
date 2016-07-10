@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hjp.qc.mapper.StaticVariableMapper" >
+  <resultMap id="BaseResultMap" type="com.hjp.qc.vo.StaticVariable" >
+    <result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR" />
+    <result column="KEY_CODE" property="keyCode" jdbcType="VARCHAR" />
+    <result column="KEY_NAME" property="keyName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryStaticByTypeCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select  TYPE_CODE, KEY_CODE, KEY_NAME,REMARK
+    	from TD_S_STATIC
+    	where TYPE_CODE = #{typeCode}
+  </select>
+  
+</mapper>
