@@ -1,5 +1,6 @@
 package com.hjp.qc.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hjp.qc.service.IQcService;
+import com.hjp.qc.service.ISequenceService;
 import com.hjp.qc.service.IStaffService;
 import com.hjp.qc.service.IStaticService;
 import com.hjp.qc.util.DateStringUtils;
@@ -35,6 +37,9 @@ public class QcManageController {
 	
 	@Resource(name = "staticService")
 	private IStaticService staticService;
+	
+	@Resource(name = "sequenceService")
+	private ISequenceService sequenceService;
 	
 	@RequestMapping(value = "/first-qc.do", method = {RequestMethod.POST, RequestMethod.GET})
 	public String firstQc(HttpServletRequest req, HttpServletResponse res, ModelMap model) throws Exception {
@@ -298,6 +303,9 @@ public class QcManageController {
 		qcType.setQcTypeCode(json.getString("qcTypeCode"));
 		qcType.setQcTypeLevel(json.getString("qcTypeLevel"));
 		qcType.setQcTypeName(json.getString("qcTypeName"));
+		Timestamp now = sequenceService.getSysDateTimestamp();
+		qcType.setCreateTime(now);
+		qcType.setEditTime(now);
 		qcService.insertQcType(qcType);
 		
 		return returnJson;
@@ -316,6 +324,7 @@ public class QcManageController {
 		qcType.setId(json.getString("idEdit"));
 		qcType.setQcTypeCode(json.getString("qcTypeCodeEdit"));
 		qcType.setQcTypeName(json.getString("qcTypeNameEdit"));
+		qcType.setEditTime(sequenceService.getSysDateTimestamp());
 		if (json.has("preQcTypeCodeEdit")) {
 			qcType.setPreQcTypeCode(json.getString("preQcTypeCodeEdit"));
 		}

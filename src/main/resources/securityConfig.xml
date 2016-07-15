@@ -20,6 +20,8 @@
 	<http pattern="web-res/**" security="none" />
 	<http pattern="/login.do" security="none" />
 	<http pattern="/checkUserExist.do" security="none" />
+	<http pattern="/app/queryQc.do" security="none" />
+	<http pattern="/app/queryQcType.do" security="none" />
 
 	<http entry-point-ref="loginUrlEntryPoint" access-denied-page="/web-res/html/accessDenied.html">
 		<!-- 前台地址拦截 -->

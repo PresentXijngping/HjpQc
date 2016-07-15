@@ -18,6 +18,8 @@ public class QcType {
 	
 	private QcType preQcType;
 
+	private Date editTime;
+	
 	public String getId() {
 		return id;
 	}
@@ -73,5 +75,13 @@ public class QcType {
 	public void setPreQcType(QcType preQcType) {
 		this.preQcType = preQcType;
 	}
-	
+
+	public Date getEditTime() {
+		return editTime;
+	}
+
+	public void setEditTime(Date editTime) {
+		this.editTime = editTime;
+	}
+
 }

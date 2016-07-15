@@ -1,5 +1,7 @@
 package com.hjp.qc.service.impl;
 
+import java.sql.Timestamp;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +18,11 @@ public class SequenceServiceImpl implements ISequenceService {
 	@Override
 	public Long nextval(String name) {
 		return sequenceMapper.nextval(name);
+	}
+
+	@Override
+	public Timestamp getSysDateTimestamp() {
+		return sequenceMapper.getSysDateTimestamp();
 	}
 
 }

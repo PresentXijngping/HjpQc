@@ -1,5 +1,6 @@
 package com.hjp.qc.service.impl;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,7 +47,6 @@ public class QcServiceImpl implements IQcService {
 		try {
 			String id = sequenceMapper.nextval("SEQ_ID").toString();
 			qcType.setId(id);
-			qcType.setCreateTime(sequenceMapper.getSysDateTimestamp());
 			qcTypeMapper.insertQcType(qcType);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,7 +125,9 @@ public class QcServiceImpl implements IQcService {
 		try {
 			String id = sequenceMapper.nextval("SEQ_ID").toString();
 			qc.setId(id);
-			qc.setCreateTime(sequenceMapper.getSysDateTimestamp());
+			Timestamp now = sequenceMapper.getSysDateTimestamp();
+			qc.setCreateTime(now);
+			qc.setEditTime(now);
 			qcMapper.insertQc(qc);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -166,5 +168,10 @@ public class QcServiceImpl implements IQcService {
 			cond.put("id", qcList.get(i).getId());
 			qcMapper.deleteQc(cond);
 		}
+	}
+
+	@Override
+	public List<Qc> queryQc(HashMap<String, Object> cond) {
+		return qcMapper.queryQc(cond);
 	}
 }

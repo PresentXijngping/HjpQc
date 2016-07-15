@@ -19,6 +19,10 @@ public class Qc {
 	private String state;
 	
 	private Date createTime;
+	
+	private Date editTime;
+	
+	private String realPicUrl;
 
 	public String getId() {
 		return id;
@@ -82,6 +86,22 @@ public class Qc {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Date getEditTime() {
+		return editTime;
+	}
+
+	public void setEditTime(Date editTime) {
+		this.editTime = editTime;
+	}
+
+	public String getRealPicUrl() {
+		return realPicUrl;
+	}
+
+	public void setRealPicUrl(String realPicUrl) {
+		this.realPicUrl = realPicUrl;
 	}
 	
 }

@@ -10,6 +10,7 @@
     	<result column="PIC_URL" property="picUrl" jdbcType="VARCHAR"/>
     	<result column="STATE" property="state" jdbcType="VARCHAR"/>
     	<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+    	<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     
     <insert id="insertQc" parameterType="com.hjp.qc.vo.QcType">
@@ -39,6 +40,9 @@
 		    <if test="createTime != null" >
 		        CREATE_TIME,
 		    </if>
+		    <if test="editTime != null" >
+		        EDIT_TIME,
+		    </if>
 		</trim>
 	    <trim prefix="values (" suffix=")" suffixOverrides="," >
 	    	<if test="id != null" >
@@ -65,6 +69,9 @@
 	      	<if test="createTime != null" >
 	        	#{createTime,jdbcType=TIMESTAMP},
 	      	</if>
+	      	<if test="editTime != null" >
+	        	#{editTime,jdbcType=TIMESTAMP},
+	      	</if>
 	   	</trim>
     </insert>
     
@@ -89,12 +96,15 @@
 		      <if test="state != null" >
 		        STATE = #{state,jdbcType=VARCHAR},
 		      </if>
+		      <if test="editTime != null" >
+		        EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		      </if>
 		    </set>
 		where ID = #{id,jdbcType=VARCHAR}
     </update>
     
     <select id="queryQc" resultMap="QcMap" parameterType="java.util.HashMap">
-    	select ID, QC_NAME, QC_TYPE_CODE, QC_CODE, QC_STANDARD, PIC_URL, STATE, CREATE_TIME
+    	select ID, QC_NAME, QC_TYPE_CODE, QC_CODE, QC_STANDARD, PIC_URL, STATE, CREATE_TIME, EDIT_TIME
     		from tf_m_qc
     		where 1=1
     		<if test="qcTypeCode != null" >
@@ -106,6 +116,11 @@
     		<if test="id != null" >
     			and ID = #{id,jdbcType=VARCHAR}
     		</if>
+    		<if test="synTime != null" >
+			<![CDATA[
+				and EDIT_TIME >= DATE_FORMAT(#{synTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s')
+			]]>
+		</if>
     </select>
     
     <select id="queryQcByPage" resultMap="QcMap" parameterType="page">

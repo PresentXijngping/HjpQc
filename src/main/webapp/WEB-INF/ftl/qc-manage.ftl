@@ -34,7 +34,7 @@
 					<td>品项状态：</td><td><input id="state" class="textbox" name="state" style="width:200px;"></td>
 				</tr>
 				<tr>
-					<td>验收标准：</td><td colspan="3"><input id="qcStandard" type="text" class="textbox" name="qcStandard" style="width:475px;height:60px"></td>
+					<td>验收标准：</td><td colspan="3"><input id="qcStandard" type="text" class="textbox" name="qcStandard" style="width:475px;height:100px"></td>
 				</tr>
 			</table>
 			<input type="hidden" value="" name="id">
@@ -42,7 +42,7 @@
 		<form id="fileForm" action="fileUpload.do" method="post" enctype="multipart/form-data" style="margin:0;padding:5px 0 0 25px;color:#333;" target="busiFrame">
 			<table>
 				<tr>
-					<td style="width:62px;">选择图片：</td><td><input id="fileInfo" class="easyui-filebox" name="fileInfo" onchange="qcManageTool.fileChange()" style="width:200px"></td>
+					<td style="width:62px;">选择图片：</td><td><input id="fileInfo" class="easyui-filebox" name="fileInfo" style="width:200px"></td>
 				</tr>
 				<tr>
 					<td>图片：</td><td><img id="imgUrl" name="imgUrl" src="web-res/images/image.jpg" width="220" height="220" alt="预览"></td>
