@@ -218,11 +218,13 @@ $(function () {
 		onChange : function (newValue,oldValue) {
 			if (newValue != oldValue) {
 				if ($('#fileInfo').filebox('getValue') != '') {
-					qcManageTool.fileCheck();
-					$.messager.progress({
-						text : '正在上传图片中...',
-					});
-					$("#fileForm").submit();
+					var checkImage = qcManageTool.fileCheck();
+					if (checkImage === true) {
+						$.messager.progress({
+							text : '正在上传图片中...',
+						});
+						$("#fileForm").submit();
+					}
 				}
 			}
 		}
@@ -311,10 +313,10 @@ $(function () {
 	            browserCfg.chrome = true;  
 	        }
 	        try{  
-                var obj_file = document.getElementByName("fileInfo")[0];  
+                var obj_file = document.getElementsByName("fileInfo")[0];  
                 if(obj_file.value==""){  
-                    alert("请先选择上传文件");  
-                    return;  
+                    $.messager.alert('警告操作！', '请先选择上传文件！', 'warning');
+                    return false;  
                 }  
                 var filesize = 0;  
                 if(browserCfg.firefox || browserCfg.chrome ){  
@@ -324,21 +326,21 @@ $(function () {
                     obj_img.dynsrc=obj_file.value;  
                     filesize = obj_img.fileSize;  
                 }else{  
-                    alert(tipMsg);  
-                return;  
+                    $.messager.alert('警告操作！', tipMsg, 'warning');
+                    return false;
                 }  
                 if(filesize==-1){  
-                    alert(tipMsg);  
-                    return;  
+                	$.messager.alert('警告操作！', tipMsg, 'warning');
+                    return false;
                 }else if(filesize>maxsize){  
-                    alert(errMsg);  
-                    return;  
+                    $.messager.alert('警告操作！', errMsg, 'warning');
+                    return false;  
                 }else{  
-                    alert("文件大小符合要求");  
-                    return;  
+                    //alert("文件大小符合要求");  
+                    return true;  
                 }  
             }catch(e){  
-                alert(e);  
+                //alert(e);  
             }
 		}
 	}
