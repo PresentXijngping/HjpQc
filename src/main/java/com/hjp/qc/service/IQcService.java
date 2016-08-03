@@ -30,4 +30,6 @@ public interface IQcService {
 	void deleteQcLis(List<Qc> qcList) throws CCHException;
 	
 	List<Qc> queryQc(HashMap<String, Object> cond);
+	
+	void updateQcList(List<Qc> qcList) throws CCHException;
 }

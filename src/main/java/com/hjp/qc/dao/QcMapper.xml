@@ -117,10 +117,15 @@
     			and ID = #{id,jdbcType=VARCHAR}
     		</if>
     		<if test="synTime != null" >
-			<![CDATA[
-				and EDIT_TIME >= DATE_FORMAT(#{synTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s')
-			]]>
-		</if>
+				<![CDATA[
+					and EDIT_TIME >= DATE_FORMAT(#{synTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s')
+				]]>
+			</if>
+			<if test='notQueryDelete != null and notQueryDelete  == "1".toString()' >
+    			<![CDATA[
+    				and STATE <> '2'
+    			]]>
+    		</if>
     </select>
     
     <select id="queryQcByPage" resultMap="QcMap" parameterType="page">
@@ -133,6 +138,12 @@
     		<if test="t.queryQcCode != null" >
     			and QC_CODE = #{t.queryQcCode,jdbcType=VARCHAR}
     		</if>
+    		<if test='t.notQueryDelete != null and t.notQueryDelete  == "1".toString()' >
+    			<![CDATA[
+    				and STATE <> '2'
+    			]]>
+    		</if>
+    		
     </select>
     
     <delete id="deleteQc" parameterType="java.util.HashMap">

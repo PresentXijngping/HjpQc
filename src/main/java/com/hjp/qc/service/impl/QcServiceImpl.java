@@ -118,6 +118,7 @@ public class QcServiceImpl implements IQcService {
 	public void insertQc(Qc qc) throws CCHException {
 		HashMap<String, Object> cond = new HashMap<String, Object>();
 		cond.put("qcCode", qc.getQcCode());
+		cond.put("notQueryDelete", "1");
 		List<Qc> qcList = qcMapper.queryQc(cond);
 		if (qcList.size() > 0) {
 			throw new CCHException("0", "该[" + qcList.get(0).getQcCode() + "]品项编码已存在，请重新输入");
@@ -139,13 +140,15 @@ public class QcServiceImpl implements IQcService {
 	@Override
 	public void updateQc(Qc qc) throws CCHException {
 		HashMap<String, Object> cond = new HashMap<String, Object>();
-		cond.put("id", qc.getQcCode());
+		cond.put("id", qc.getId());
+		cond.put("notQueryDelete", "1");
 		List<Qc> qcList = qcMapper.queryQc(cond);
 		if (qcList.size() > 0) {
 			//当编码发生了改变，需要校验是否该编码已经被使用
 			if (!qcList.get(0).getQcCode().equals(qc.getQcCode())) {
 				cond.clear();
 				cond.put("qcCode", qc.getQcCode());
+				cond.put("notQueryDelete", "1");
 				List<Qc> existQcList = qcMapper.queryQc(cond);
 				if (existQcList.size() > 0) {
 					throw new CCHException("0", "该[" + qcList.get(0).getQcCode() + "]品项编码已存在，请重新输入");
@@ -153,6 +156,8 @@ public class QcServiceImpl implements IQcService {
 			}
 		}
 		try {
+			Timestamp now = sequenceMapper.getSysDateTimestamp();
+			qc.setEditTime(now);
 			qcMapper.updateQc(qc);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -173,5 +178,16 @@ public class QcServiceImpl implements IQcService {
 	@Override
 	public List<Qc> queryQc(HashMap<String, Object> cond) {
 		return qcMapper.queryQc(cond);
+	}
+
+	@Transactional(rollbackFor=CCHException.class)
+	@Override
+	public void updateQcList(List<Qc> qcList) throws CCHException {
+		HashMap<String, Object> cond = new HashMap<String, Object>();
+		for (int i = 0; i < qcList.size(); i++) {
+			Timestamp now = sequenceMapper.getSysDateTimestamp();
+			qcList.get(i).setEditTime(now);
+			qcMapper.updateQc(qcList.get(i));
+		}
 	}
 }

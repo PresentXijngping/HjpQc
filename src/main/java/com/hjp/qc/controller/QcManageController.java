@@ -170,6 +170,7 @@ public class QcManageController {
 		if (queryQcCode != null && !"".equals(queryQcCode)) {
 			con.put("queryQcCode", queryQcCode);
 		}
+		con.put("notQueryDelete", "1");
 		Page page = new Page(Integer.parseInt(currPage), Integer.parseInt(pageSize));
 		page.setT(con);
 		
@@ -436,9 +437,11 @@ public class QcManageController {
 		for (int i = 0; i < qcArray.length(); i++) {
 			Qc qc = new Qc();
 			qc.setId(qcArray.get(i).toString());
+			//将状态更新成2，即删除状态
+			qc.setState("2");
 			qcList.add(qc);
 		}
-		qcService.deleteQcLis(qcList);
+		qcService.updateQcList(qcList);
 		return returnJson;
 	}
 }

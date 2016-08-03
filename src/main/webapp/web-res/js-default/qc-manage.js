@@ -101,7 +101,7 @@ $(function () {
 			handler : function () {
 				if ($('#qcManageAddForm').form('validate')) {
 					var data ={};
-					data.id = $('input[name="id"]').val();
+					data.id = $('input[name="qcId"]').val();
 					data.qcCode = $('input[name="qcCode"]').val();
 					data.qcName = $('input[name="qcName"]').val();
 					data.qcTypeCode = $('#qcTypeCode').combotree('getValue');
@@ -252,7 +252,7 @@ $(function () {
 					qcName : rows[0].qcName,
 					state : rows[0].state,
 					qcStandard : rows[0].qcStandard,
-					id : rows[0].id
+					qcId : rows[0].id
 				}).dialog('open');
 			} else if (rows.length == 0) {
 				$.messager.alert('警告操作！', '编辑记录至少选定一条数据！', 'warning');

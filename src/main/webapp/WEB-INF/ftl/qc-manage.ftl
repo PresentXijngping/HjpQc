@@ -37,7 +37,7 @@
 					<td>验收标准：</td><td colspan="3"><input id="qcStandard" type="text" class="textbox" name="qcStandard" style="width:475px;height:100px"></td>
 				</tr>
 			</table>
-			<input type="hidden" value="" name="id">
+			<input type="hidden" value="" name="qcId">
 		</form>
 		<form id="fileForm" action="fileUpload.do" method="post" enctype="multipart/form-data" style="margin:0;padding:5px 0 0 25px;color:#333;" target="busiFrame">
 			<table>
