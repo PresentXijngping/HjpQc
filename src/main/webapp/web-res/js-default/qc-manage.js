@@ -25,6 +25,7 @@ $(function () {
 		    	field : 'qcCode',
 		    	title : '品项编码',
 		    	width : 100,
+		    	sortable : true,
 		    },
 		    {
 		    	field : 'qcName',

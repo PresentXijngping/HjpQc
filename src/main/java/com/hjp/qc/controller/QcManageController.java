@@ -66,6 +66,9 @@ public class QcManageController {
 		String beginTime = req.getParameter("beginTime");
 		String endTime = req.getParameter("endTime");
 		
+		String sort = req.getParameter("sort");
+		String order = req.getParameter("order");
+		
 		HashMap<String, Object> con = new HashMap<String, Object>();
 		if (qcTypeLevel != null && !"".equals(qcTypeLevel)) {
 			con.put("qcTypeLevel", qcTypeLevel);
@@ -78,6 +81,16 @@ public class QcManageController {
 		}
 		if (endTime != null && !"".equals(endTime)) {
 			con.put("endTime", endTime + " 23:59:59");
+		}
+		if (sort != null && !"".equals(sort)) {
+			con.put("sort", sort);
+		} else {
+			con.put("sort", "qcTypeCode");
+		}
+		if (order != null && !"".equals(order)) {
+			con.put("order", order);
+		} else {
+			con.put("order", "asc");
 		}
 		Page page = new Page(Integer.parseInt(currPage), Integer.parseInt(pageSize));
 		page.setT(con);
@@ -110,6 +123,9 @@ public class QcManageController {
 		String beginTime = req.getParameter("beginTime");
 		String endTime = req.getParameter("endTime");
 		
+		String sort = req.getParameter("sort");
+		String order = req.getParameter("order");
+		
 		HashMap<String, Object> con = new HashMap<String, Object>();
 		if (qcTypeLevel != null && !"".equals(qcTypeLevel)) {
 			con.put("qcTypeLevel", qcTypeLevel);
@@ -122,6 +138,16 @@ public class QcManageController {
 		}
 		if (endTime != null && !"".equals(endTime)) {
 			con.put("endTime", endTime + " 23:59:59");
+		}
+		if (sort != null && !"".equals(sort)) {
+			con.put("sort", sort);
+		} else {
+			con.put("sort", "qcTypeCode");
+		}
+		if (order != null && !"".equals(order)) {
+			con.put("order", order);
+		} else {
+			con.put("order", "asc");
 		}
 		Page page = new Page(Integer.parseInt(currPage), Integer.parseInt(pageSize));
 		page.setT(con);
@@ -166,9 +192,22 @@ public class QcManageController {
 		
 		String queryQcCode = req.getParameter("queryQcCode");
 		
+		String sort = req.getParameter("sort");
+		String order = req.getParameter("order");
+		
 		HashMap<String, Object> con = new HashMap<String, Object>();
 		if (queryQcCode != null && !"".equals(queryQcCode)) {
 			con.put("queryQcCode", queryQcCode);
+		}
+		if (sort != null && !"".equals(sort)) {
+			con.put("sort", sort);
+		} else {
+			con.put("sort", "qcCode");
+		}
+		if (order != null && !"".equals(order)) {
+			con.put("order", order);
+		} else {
+			con.put("order", "asc");
 		}
 		con.put("notQueryDelete", "1");
 		Page page = new Page(Integer.parseInt(currPage), Integer.parseInt(pageSize));

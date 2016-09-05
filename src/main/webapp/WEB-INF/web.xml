@@ -60,4 +60,13 @@
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>
+	
+	<servlet>       
+	  <servlet-name>DruidStatView</servlet-name>     
+	  <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>  
+	</servlet>   
+	<servlet-mapping>     
+	   <servlet-name>DruidStatView</servlet-name>  
+	   <url-pattern>/druid/*</url-pattern>  
+	 </servlet-mapping> 
 </web-app>

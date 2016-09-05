@@ -23,6 +23,7 @@ $(function () {
 		    	field : 'qcTypeCode',
 		    	title : '分类编码',
 		    	width : 100,
+		    	sortable : true,
 		    },
 		    {
 		    	field : 'qcTypeName',

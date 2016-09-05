@@ -143,7 +143,20 @@
     				and STATE <> '2'
     			]]>
     		</if>
-    		
+    		<if test="t.sort != null" >
+			<choose>
+				<when test='t.sort == "qcCode".toString()'>
+					<choose>
+						<when test='t.order == "desc".toString()'>
+							order by QC_CODE DESC
+						</when>
+						<when test='t.order == "asc".toString()'>
+							order by QC_CODE ASC
+						</when>
+					</choose>
+				</when>
+			</choose>
+		</if>
     </select>
     
     <delete id="deleteQc" parameterType="java.util.HashMap">

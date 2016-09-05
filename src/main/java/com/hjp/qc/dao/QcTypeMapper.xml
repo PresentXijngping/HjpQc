@@ -31,6 +31,20 @@
 			and CREATE_TIME <= DATE_FORMAT(#{t.endTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s')
 			]]>
 		</if>
+		<if test="t.sort != null" >
+			<choose>
+				<when test='t.sort == "qcTypeCode".toString()'>
+					<choose>
+						<when test='t.order == "desc".toString()'>
+							order by QC_TYPE_CODE DESC
+						</when>
+						<when test='t.order == "asc".toString()'>
+							order by QC_TYPE_CODE ASC
+						</when>
+					</choose>
+				</when>
+			</choose>
+		</if>
     </select>
     
     <select id="queryQcType" resultMap="QcTypeMap" parameterType="java.util.HashMap">
